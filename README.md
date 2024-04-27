@@ -2,9 +2,9 @@
 Простой пример отправки и обработки метрик
 
 
-Запуск:
+## Запуск:
 
-Веб-приложение:
+### Веб-приложение:
 
 
 В первом терминале
@@ -15,11 +15,28 @@ npm start
 ```
 
  
-Сервер-метрики:
+### Сервер-метрики:
 
 Во втором терминале 
+
+- Linux / MacOS
+
 ```
 cd metrics_server
 pip install -r requirements.txt
 sh start.sh
+```
+
+- Windows (Cmd)
+```
+cd metrics_server
+pip install -r requirements.txt
+start.cmd
+```
+
+- Windows (PowerShell)
+```
+cd metrics_server
+pip install -r requirements.txt
+./start.cmd
 ```
