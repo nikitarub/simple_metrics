@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <script>
+    function sent_metrics(key, value=null) {
+      console.log('sent');
+      const metrics_data = {
+        key: key,
+        value: value
+      }
+      fetchModule.doPost({path: "/send/", body: metrics_data})
+    }
+    
+    
+    function click_on_button() {
+      sent_metrics("clicked_on_button_inline")
+    }
+    
+    export const serverUrl = "http://0.0.0.0:9000"
+    
+    
+    export class fetchModule {
+      static _ajax ({ method = 'GET', path = '/', body, headers } = {}) {
+        let theUrl = serverUrl;
+        const url = theUrl + path;
+    
+        const options = {
+          mode: 'cors',
+          credentials: 'include',
+          // credentials: 'same-origin',
+          method: method,
+          headers: {}
+        }
+        if (headers) {
+          options.headers = headers;
+        }
+    
+        if (body) {
+          // console.log("body: ", body);
+          options.headers['Content-Type'] = 'application/json; charset=utf-8' ;
+          options.body = JSON.stringify(body);
+        }
+        return fetch(url, options);
+      }
+    
+      static doGet (params = {}) {
+            // console.log("Doing get")
+        return this._ajax({ ...params, method: 'GET' });
+      }
+    
+      static doPost (params = {}) {
+        // console.log("do post ", params);
+        return this._ajax({ ...params, method: 'POST' });
+      }
+    
+      static doDelete (params = {}) {
+        return this._ajax({ ...params, method: 'DELETE' });
+      }
+    
+      static doPut (params = {}) {
+        return this._ajax({ ...params, method: 'PUT' });
+      }
+      static doPatch (params = {}) {
+        return this._ajax({ ...params, method: 'PATCH' });
+      }
+    
+      static serverUrl () {
+        return serverUrl;
+      }
+    }
+    
+    </script>
+<body>
+<h1>HTML DOM Events</h1>
+<h2>The onclick Event</h2>
+
+<p>The onclick event triggers a function when an element is clicked on.</p>
+<p>Click to trigger a function that will output "Hello World":</p>
+
+<button onclick="click_on_button()">Click me</button>
+
+<p id="demo"></p>
+
+
+
+</body>
+</html>
